@@ -34,3 +34,22 @@ function irAlMenu() {
         // window.location.href = `menu.html?mesa=${mesaSeleccionadaNumero}`;
     }
 }
+
+// Menú burger
+function irAlMenu() {
+    if (mesaSeleccionadaNumero) {
+        alert(`Yendo al menú para la Mesa ${mesaSeleccionadaNumero}. ¡A disfrutar del sushi! 🍣`);
+        // En un caso real, usarías:
+        // window.location.href = `menu.html?mesa=${mesaSeleccionadaNumero}`;
+    }
+}
+
+function toggleMenu() {
+    document.querySelector('.sidebar').classList.toggle('active');
+}
+
+function mostrarLoginAdmin() {
+    alert('Aquí iría el formulario de login para el administrador');
+    // En una implementación real, aquí mostrarías un formulario de login
+    toggleMenu(); // Cierra el menú después de mostrar el alert
+}

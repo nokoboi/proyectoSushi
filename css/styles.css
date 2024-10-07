@@ -47,7 +47,7 @@ h1 {
     color: #FF6B8B;
     border-radius: 20%;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -91,6 +91,61 @@ h1 {
     background-color: #FF97B5;
     transform: scale(1.05);
 }
+
+/* Toggle hamburguesa */
+
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    background-color: #FF6B8B;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #FFD3E0;
+    transition: all 0.3s ease;
+    z-index: 999;
+    padding-top: 60px;
+}
+.sidebar.active {
+    left: 0;
+    border-right: 0.5rem solid white;
+    box-shadow: 7px 2px 5px 0px rgba(0,0,0,0.4);
+}
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+.sidebar ul li {
+    padding: 15px 20px;
+}
+.sidebar ul li a {
+    color: #FF6B8B;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+.sidebar ul li a:hover {
+    color: #FF97B5;
+}
+
 
 @media (max-width: 600px) {
     .logo img{

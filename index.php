@@ -15,6 +15,17 @@
     </div>
     <h1>Bienvenido a Suho Sushi</h1>
 
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" onclick="mostrarLoginAdmin()">Acceso Administrador</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <h2>🍱 Elige tu mesa primero 🍱</h2>
         <div class="grid" id="gridMesas"></div>
