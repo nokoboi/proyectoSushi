@@ -21,9 +21,17 @@
         <span></span>
     </div>
     <div class="sidebar">
-        <ul>
-            <li><a href="#" onclick="mostrarLoginAdmin()">Acceso Administrador</a></li>
-        </ul>
+        <div id="loginForm" class="login-container">
+            <form action="admin_login.php" method="POST" class="login-form">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="btn-login">Iniciar sesión</button>
+            </form>
+        </div>
     </div>
 
     <div class="container">
