@@ -47,9 +47,3 @@ function irAlMenu() {
 function toggleMenu() {
     document.querySelector('.sidebar').classList.toggle('active');
 }
-
-function mostrarLoginAdmin() {
-    alert('Aquí iría el formulario de login para el administrador');
-    // En una implementación real, aquí mostrarías un formulario de login
-    toggleMenu(); // Cierra el menú después de mostrar el alert
-}

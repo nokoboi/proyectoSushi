@@ -22,14 +22,15 @@
     </div>
     <div class="sidebar">
         <div id="loginForm" class="login-container">
-            <form action="admin_login.php" method="POST" class="login-form">
+            <form method="POST" class="login-form">
                 <label for="username">Nombre de usuario</label>
                 <input type="text" id="username" name="username" required>
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" required>
+                <div id="errorMessages" style="color: red; margin-bottom: 10px;"></div>
 
-                <button type="submit" class="btn-login">Iniciar sesión</button>
+                <button type="submit" id="btnAdmin" class="btn-login">Iniciar sesión</button>
             </form>
         </div>
     </div>
@@ -42,6 +43,7 @@
     </div>
 
     <script src="javascript/mesasJS.js"></script>
+    <script src="javascript/logginAdmin.js"></script>
 </body>
 
 </html>
