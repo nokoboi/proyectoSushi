@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost/ProyectoSushi/controllers/usuarios.php';
 const btnAdmin = document.getElementById('btnAdmin');
 
 function validateLoginForm() {
@@ -21,8 +22,8 @@ function validateLoginForm() {
     if (password === '') {
         errorMessages.innerHTML += 'La contraseña es obligatoria.<br>';
         isValid = false;
-    } else if (password.length < 5) {
-        errorMessages.innerHTML += 'La contraseña debe tener al menos 5 caracteres.<br>';
+    } else if (password.length < 4) {
+        errorMessages.innerHTML += 'La contraseña debe tener al menos 4 caracteres.<br>';
         isValid = false;
     }
 
@@ -32,10 +33,30 @@ function validateLoginForm() {
 btnAdmin.addEventListener('click', function(event) {
     event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
-    // Validar el formulario al hacer clic
     if (validateLoginForm()) {
-        console.log("Formulario validado correctamente.");
-        // Aquí puedes proceder con el envío del formulario o la acción deseada
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        fetch(API_URL)
+            .then(response => response.json())
+            .then(users => {
+                console.log(users)
+                // Suponiendo que `users` es un array de objetos con `username` y `password`
+                const foundUser = users.find(user => user.nombre_usuario === username && user.contrasena === password);
+
+                if (foundUser) {
+                    console.log("Inicio de sesión exitoso. Redirigiendo...");
+                    // Redirigir a la página de administración
+                    window.location.href = 'prueba.html'; // Cambia 'admin.html' por la URL correcta
+                } else {
+                    document.getElementById('errorMessages').innerHTML = 'Nombre de usuario o contraseña incorrectos.<br>';
+                    console.log("Error en el inicio de sesión.");
+                }
+            })
+            .catch(error => {
+                console.error('Error al consultar la API:', error);
+                document.getElementById('errorMessages').innerHTML = 'Hubo un error al verificar las credenciales.<br>';
+            });
     } else {
         console.log("El formulario tiene errores.");
     }

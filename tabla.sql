@@ -23,7 +23,8 @@ CREATE TABLE productos (
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     tipo ENUM('buffet', 'bebida') NOT NULL,
-    precio DECIMAL(10, 2) NOT NULL
+    precio DECIMAL(10, 2) NOT NULL,
+    imagen varchar(100) NOT NULL,
 );
 
 

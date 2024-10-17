@@ -9,8 +9,6 @@ class Database{
         if($this->conexion->connect_error) {
             die('Error de conexión: '. $this->conexion->connect_error);
         }
-
-        echo "conexion establecida";
     }
 
     public function query($sql, $params = []) {
@@ -32,7 +30,3 @@ class Database{
         $this->conexion->close();
     }
 }
-
-$d1 = new Database();
-
-
