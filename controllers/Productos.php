@@ -27,6 +27,22 @@ switch ($method) {
     case 'POST':
         setProducto($products);
         break;
+    case 'PUT':
+        if($id){
+            updateProducto($products,$id);
+        }else{
+            http_response_code(400);
+            echo json_encode(['Error: '=>'ID no proporcionado']);
+        }
+        break;
+    case 'DELETE':
+        if($id){
+            deleteProducto($products,$id);
+        }else{
+            http_response_code(400);
+            echo json_encode(['Error: '=>'ID no proporcionado']);
+        }
+        break;
 
     default:
         http_response_code(405);
@@ -61,3 +77,26 @@ function setProducto($producto)
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
+
+function updateProducto($producto,$id){
+    $data = json_decode(file_get_contents('php://input'),true);
+
+    if (isset($data['nombre']) && isset($data['tipo']) && isset($data['imagen'])) {
+        // Usar fusión nula para establecer el precio como null si no está presente
+        $descripcion = $data['descripcion'] ?? null;
+        $precio = $data['precio'] ?? null;
+
+        // Crear el producto pasando los valores necesarios
+        $affected = $producto->updateProducto($id,$data['nombre'], $descripcion, $data['tipo'], $precio, $data['imagen']);
+        
+        echo json_encode(['affected' => $affected]);
+    } else {
+        echo json_encode(['Error' => 'Datos insuficientes']);
+    }
+}
+
+function deleteProducto($producto,$id){
+    $affected = $producto->deleteProducto($id);
+    echo json_encode(['affected' => $affected]);
+}
+
