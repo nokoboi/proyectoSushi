@@ -1,15 +1,27 @@
+const API_MESAS = 'http://localhost/ProyectoSushi/controllers/Mesas.php';
+
 const gridMesas = document.getElementById('gridMesas');
 const mesaSeleccionadaDiv = document.getElementById('mesaSeleccionada');
 const botonMenu = document.getElementById('botonMenu');
-const numMesas = 12;
 let mesaSeleccionadaNumero = null;
 
-for (let i = 1; i <= numMesas; i++) {
-    const mesa = document.createElement('div');
-    mesa.className = 'mesa';
-    mesa.innerHTML = `Mesa ${i}`;
-    mesa.addEventListener('click', () => seleccionarMesa(i));
-    gridMesas.appendChild(mesa);
+async function cargarMesas() {
+    try {
+        const response = await fetch(API_MESAS);
+        const mesas = await response.json();
+
+        gridMesas.innerHTML = '';
+
+        mesas.forEach(mesa => {
+            const divMesa = document.createElement('div');
+            divMesa.className = 'mesa';
+            divMesa.innerHTML = `Mesa ${mesa.numero_mesa}`;
+            divMesa.addEventListener('click', () => seleccionarMesa(mesa.numero_mesa));
+            gridMesas.appendChild(divMesa);
+        })
+    }catch(error){
+        console.error('Error al cargar las mesas',error)
+    }
 }
 
 function seleccionarMesa(numeroMesa) {
@@ -47,3 +59,6 @@ function irAlMenu() {
 function toggleMenu() {
     document.querySelector('.sidebar').classList.toggle('active');
 }
+
+// Cargamos las mesas cuando ya se haga cargado la pagina
+document.addEventListener('DOMContentLoaded', cargarMesas);

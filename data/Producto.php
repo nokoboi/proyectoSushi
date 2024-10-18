@@ -55,7 +55,7 @@ class Producto
         // Verificamos que el producto existe o no
         $result = $this->db->query("SELECT id from productos where id=?", [$id]);
         if ($result->num_rows == 0) {
-            return ["director" => "El producto no existe"];
+            return ["producto" => "El producto no existe"];
         }
 
         $this->db->query(
