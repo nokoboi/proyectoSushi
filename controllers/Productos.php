@@ -14,6 +14,8 @@ $uri = $_SERVER['REQUEST_URI'];
 $parametros = Utilidades::parseUriParameters($uri);
 
 $id = Utilidades::getParameterValue($parametros, 'id');
+$metodo = Utilidades::getParameterValue($parametros, 'metodo');
+
 
 switch ($method) {
     case 'GET':
@@ -25,22 +27,24 @@ switch ($method) {
         echo json_encode($respuesta);
         break;
     case 'POST':
-        setProducto($products);
-        break;
-    case 'PUT':
-        if($id){
-            updateProducto($products,$id);
-        }else{
-            http_response_code(400);
-            echo json_encode(['Error: '=>'ID no proporcionado']);
+        if ($metodo == 'nuevo') {
+            setProducto($products);
         }
-        break;
-    case 'DELETE':
-        if($id){
-            deleteProducto($products,$id);
-        }else{
-            http_response_code(400);
-            echo json_encode(['Error: '=>'ID no proporcionado']);
+        if ($metodo == 'actualizar') {
+            if ($id) {
+                updateProducto($products, $id);
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID no proporcionado']);
+            }
+        }
+        if ($metodo == 'eliminar') {
+            if ($id) {
+                deleteProducto($products, $id);
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID no proporcionado']);
+            }
         }
         break;
 
@@ -99,4 +103,9 @@ function deleteProducto($producto,$id){
     $affected = $producto->deleteProducto($id);
     echo json_encode(['affected' => $affected]);
 }
+
+
+// Consulta que muestre la factura o ticket
+// modificar y ver los pedidos
+// un filtro de fechas de los pedidos y consulta para mostrar el total del pedido
 

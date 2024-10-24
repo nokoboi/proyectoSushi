@@ -182,6 +182,132 @@ h1 {
     transform: scale(1.05);
 }
 
+/* Formularios de admin */
+form#createForm {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px auto;
+}
+
+form#createForm input[type="text"],
+form#createForm input[type="number"],
+form#createForm textarea,
+form#createForm select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #FFD3E0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form#createForm input[type="text"]:focus,
+form#createForm textarea:focus,
+form#createForm select:focus {
+    border-color: #FF6B8B;
+    box-shadow: 0 0 5px rgba(255, 107, 139, 0.5);
+}
+
+form#createForm textarea {
+    resize: none;
+}
+
+form#createForm button[type="submit"] {
+    padding: 10px;
+    font-size: 18px;
+    background-color: #FF6B8B;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form#createForm button[type="submit"]:hover {
+    background-color: #FF97B5;
+    transform: scale(1.05);
+}
+
+/* Tablas */
+/* Estilo para la tabla de productos */
+#prodTable {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #FF6B8B;
+    color: white;
+    text-align: left;
+}
+
+#prodTable thead tr {
+    border-bottom: 2px solid #FFD3E0;
+}
+
+#prodTable thead th {
+    padding: 12px 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+#prodTable tbody tr:hover {
+    background-color: #FFD3E0;
+    transition: background-color 0.3s ease;
+}
+
+#prodTable tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #FFD3E0;
+    color: #FF6B8B;
+    font-size: 16px;
+}
+
+h2 {
+    color: #FF6B8B;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.edicion{
+    display: none;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #FFD3E0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.td-btn button{
+    padding: 0.5rem;
+    margin: 0.5rem;
+    color: white;
+    border: none;
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+textarea{
+    resize: none;
+}
+
 
 @media (max-width: 600px) {
     .logo img{

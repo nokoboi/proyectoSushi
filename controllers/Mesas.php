@@ -11,6 +11,7 @@ $uri = $_SERVER['REQUEST_URI'];
 $parametros = Utilidades::parseUriParameters($uri);
 
 $id = Utilidades::getParameterValue($parametros, 'id');
+$metodo = Utilidades::getParameterValue($parametros, 'metodo');
 
 switch ($method) {
     case 'GET':
@@ -22,22 +23,24 @@ switch ($method) {
         echo json_encode($respuesta);
         break;
     case 'POST':
-        setMesa($mesas);
-        break;
-    case 'PUT':
-        if ($id) {
-            updateMesa($mesas, $id);
-        } else {
-            http_response_code(400);
-            echo json_encode(['Error: ' => 'ID no proporcionado']);
+        if ($metodo == 'nuevo') {
+            setMesa($mesas);
         }
-        break;
-    case 'DELETE':
-        if ($id) {
-            deleteMesa($mesas, $id);
-        } else {
-            http_response_code(400);
-            echo json_encode(['Error: ' => 'ID no proporcionado']);
+        if ($metodo == 'actualizar') {
+            if ($id) {
+                updateMesa($mesas, $id);
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID no proporcionado']);
+            }
+        }
+        if ($metodo == 'eliminar') {
+            if ($id) {
+                deleteMesa($mesas, $id);
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'ID no proporcionado']);
+            }
         }
         break;
     default:
@@ -56,29 +59,32 @@ function getMesaById($mesa, $id)
     return $mesa->getMesaById($id);
 }
 
-function setMesa($mesa){
+function setMesa($mesa)
+{
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if(isset($data['numero_mesa'])){
-        $id=$mesa->createMesa($data['numero_mesa']);
-        echo json_encode(['id'=>$id]);
-    }else{
+    if (isset($data['numero_mesa'])) {
+        $id = $mesa->createMesa($data['numero_mesa']);
+        echo json_encode(['id' => $id]);
+    } else {
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
 
-function updateMesa($mesa,$id){
+function updateMesa($mesa, $id)
+{
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if(isset($data['numero_mesa'])){
-        $affected=$mesa->updateMesa($id,$data['numero_mesa']);
+    if (isset($data['numero_mesa'])) {
+        $affected = $mesa->updateMesa($id, $data['numero_mesa']);
         echo json_encode(['affected' => $affected]);
-    }else{
+    } else {
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
 
-function deleteMesa($mesa,$id){
+function deleteMesa($mesa, $id)
+{
     $affected = $mesa->deleteMesa($id);
     echo json_encode(['affected' => $affected]);
 }

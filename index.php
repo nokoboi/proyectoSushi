@@ -28,6 +28,7 @@
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" required>
+                <a href=""></a>
                 <div id="errorMessages" style="color: red; margin-bottom: 10px;"></div>
 
                 <button type="submit" id="btnAdmin" class="btn-login">Iniciar sesión</button>
