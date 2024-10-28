@@ -66,40 +66,71 @@ function getProductoById($products, $id)
 
 function setProducto($producto)
 {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $_POST; // Capturamos los datos del formulario
+    $file = $_FILES['imagen']; // Capturamos el archivo subido
 
-    if (isset($data['nombre']) && isset($data['tipo']) && isset($data['imagen'])) {
-        // Usar fusión nula para establecer el precio como null si no está presente
-        $descripcion = $data['descripcion'] ?? null;
-        $precio = $data['precio'] ?? null;
+    // Verificar si el archivo se subió correctamente
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(['Error' => 'Error al subir el archivo.']);
+        return;
+    }
 
-        // Crear el producto pasando los valores necesarios
-        $id = $producto->createProduct($data['nombre'], $descripcion, $data['tipo'], $precio, $data['imagen']);
-        
-        echo json_encode(['id' => $id]);
+    // Ruta donde deseas guardar la imagen
+    $uploadDir = '../assets/'; // Asegúrate de que esta carpeta exista y tenga permisos de escritura
+    $fileName = $uploadDir . basename($file['name']);
+    $uploadFilePath = $uploadDir . $fileName;
+
+    if (isset($data['nombre']) && isset($data['tipo']) && isset($fileName)) {
+        if (move_uploaded_file($file['tmp_name'], $uploadFilePath)) {
+            // Usar fusión nula para establecer el precio como null si no está presente
+            $descripcion = $data['descripcion'] ?? null;
+            $precio = $data['precio'] ?? null;
+
+            // Crear el producto pasando los valores necesarios
+            $id = $producto->createProduct($data['nombre'], $descripcion, $data['tipo'], $precio, $fileName);
+
+            echo json_encode(['id' => $id]);
+        }
+
     } else {
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
 
-function updateProducto($producto,$id){
-    $data = json_decode(file_get_contents('php://input'),true);
+function updateProducto($producto, $id) {
+    if (isset($_POST['nombre']) && isset($_POST['tipo'])) {
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'] ?? null;
+        $tipo = $_POST['tipo'];
+        $precio = $_POST['precio'] ?? null;
 
-    if (isset($data['nombre']) && isset($data['tipo']) && isset($data['imagen'])) {
-        // Usar fusión nula para establecer el precio como null si no está presente
-        $descripcion = $data['descripcion'] ?? null;
-        $precio = $data['precio'] ?? null;
+        // Manejo de la imagen
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $imagen = $_FILES['imagen'];
+            $nombreImagen = basename($imagen['name']);
+            $rutaDestino = "../assets/$nombreImagen";
 
-        // Crear el producto pasando los valores necesarios
-        $affected = $producto->updateProducto($id,$data['nombre'], $descripcion, $data['tipo'], $precio, $data['imagen']);
-        
+            if (move_uploaded_file($imagen['tmp_name'], $rutaDestino)) {
+                $rutaImagen = $rutaDestino; // Usar la nueva imagen
+            } else {
+                echo json_encode(['Error' => 'Error al mover la imagen a la carpeta de destino.']);
+                return;
+            }
+        } else {
+            // Mantener la ruta existente si no se sube nueva imagen
+            $rutaImagen = $_POST['imagen'];
+        }
+
+        // Actualizar el producto en la base de datos
+        $affected = $producto->updateProducto($id, $nombre, $descripcion, $tipo, $precio, $rutaImagen);
         echo json_encode(['affected' => $affected]);
     } else {
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
 
-function deleteProducto($producto,$id){
+function deleteProducto($producto, $id)
+{
     $affected = $producto->deleteProducto($id);
     echo json_encode(['affected' => $affected]);
 }

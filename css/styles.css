@@ -208,6 +208,28 @@ form#createForm select {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Oculta el input real */
+#file-upload {
+    display: none;
+}
+
+/* Estilo para el botón personalizado */
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #FF6B8B; /* color de fondo */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos adicionales, como el cambio de color al hacer hover */
+.custom-file-upload:hover {
+    background-color: #FF97B5;
+}
+
 form#createForm input[type="text"]:focus,
 form#createForm textarea:focus,
 form#createForm select:focus {
@@ -262,6 +284,7 @@ thead {
     padding: 12px 15px;
     font-size: 18px;
     text-transform: uppercase;
+    text-align: center;
 }
 
 #prodTable tbody tr:hover {
@@ -274,6 +297,7 @@ thead {
     border-bottom: 1px solid #FFD3E0;
     color: #FF6B8B;
     font-size: 16px;
+    text-align: center;
 }
 
 h2 {
@@ -306,6 +330,13 @@ h2 {
 
 textarea{
     resize: none;
+}
+
+/* Estilos para la imagen de la tabla del admin */
+.listado img{
+    width: 60%;
+    object-fit: cover;
+    height: 150px;
 }
 
 

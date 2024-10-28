@@ -24,6 +24,12 @@ class Producto
         return $result->fetch_assoc();
     }
 
+    public function getImagebyId($id)
+    {
+        $result = $this->db->query("SELECT imagen from productos where id=?", [$id]);
+        return $result->fetch_assoc();
+    }
+
     public function createProduct($nombre, $descripcion = null, $tipo, $precio = null, $imagen)
     {
         $data = ['nombre' => $nombre, 'descripcion' => $descripcion, 'tipo' => $tipo, 'precio' => $precio, 'imagen' => $imagen];
