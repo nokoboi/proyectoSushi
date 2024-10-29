@@ -26,8 +26,11 @@ class Producto
 
     public function getImagebyId($id)
     {
-        $result = $this->db->query("SELECT imagen from productos where id=?", [$id]);
-        return $result->fetch_assoc();
+        $result = $this->db->query("SELECT imagen FROM productos WHERE id=?", [$id]);
+        $row = $result->fetch_assoc();
+
+        // Devuelve la ruta de la imagen, o null si no se encuentra
+        return $row['imagen'] ?? null;
     }
 
     public function createProduct($nombre, $descripcion = null, $tipo, $precio = null, $imagen)
@@ -74,8 +77,9 @@ class Producto
 
     }
 
-    function deleteProducto($id){
-        $this->db->query("DELETE FROM productos where id=?",[$id]);
+    function deleteProducto($id)
+    {
+        $this->db->query("DELETE FROM productos where id=?", [$id]);
         return $this->db->query('SELECT ROW_COUNT() as affected')->fetch_assoc()['affected'];
     }
 }

@@ -129,12 +129,35 @@ function updateProducto($producto, $id) {
     }
 }
 
-function deleteProducto($producto, $id)
-{
-    $affected = $producto->deleteProducto($id);
-    echo json_encode(['affected' => $affected]);
-}
+function deleteProducto($producto, $id) {
+    // Primero obtén la ruta de la imagen
+    $rutaImagen = $producto->getImagebyId($id);
 
+    // Verifica que la ruta de la imagen sea válida
+    if (!$rutaImagen) {
+        echo json_encode(['Error' => 'La ruta de la imagen es incorrecta.']);
+        exit; // Salir si la ruta es null
+    }
+
+    // Intenta eliminar el producto
+    $affected = $producto->deleteProducto($id);
+
+    // Solo intenta borrar la imagen si el producto fue eliminado correctamente
+    if ($affected) {
+        // Verifica si la imagen existe y luego intenta eliminarla
+        if ($rutaImagen && file_exists($rutaImagen)) {
+            if (unlink($rutaImagen)) {
+                echo json_encode(['affected' => $affected, 'message' => 'Producto y imagen eliminados.']);
+            } else {
+                echo json_encode(['Error' => 'No se pudo borrar la imagen.']);
+            }
+        } else {
+            echo json_encode(['Error' => 'La imagen no existe o la ruta es incorrecta.']);
+        }
+    } else {
+        echo json_encode(['Error' => 'No se pudo eliminar el producto']);
+    }
+}
 
 // Consulta que muestre la factura o ticket
 // modificar y ver los pedidos
