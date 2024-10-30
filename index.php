@@ -40,7 +40,11 @@
         <h2>🍱 Elige tu mesa primero 🍱</h2>
         <div class="grid" id="gridMesas"></div>
         <div id="mesaSeleccionada"></div>
-        <button id="botonMenu" onclick="irAlMenu()">Ver Menú 🍣</button>
+        <div id="personas">
+            <h2>¡Espera! ¿Cuántas personas sois?</h2>
+            <input type="number" id="numeroPersonas" required min="0">
+            <button id="botonMenu" onclick="irAlMenu()">Ver Menú 🍣</button>
+        </div>
     </div>
 
     <script src="javascript/mesasJS.js"></script>

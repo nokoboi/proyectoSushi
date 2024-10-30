@@ -3,6 +3,8 @@ const API_MESAS = 'http://localhost/ProyectoSushi/controllers/Mesas.php';
 const gridMesas = document.getElementById('gridMesas');
 const mesaSeleccionadaDiv = document.getElementById('mesaSeleccionada');
 const botonMenu = document.getElementById('botonMenu');
+const inputsPersonas = document.getElementById('personas')
+
 let mesaSeleccionadaNumero = null;
 
 async function cargarMesas() {
@@ -34,27 +36,23 @@ function seleccionarMesa(numeroMesa) {
     mesaSeleccionadaDiv.innerHTML = `¡Ñam! Has elegido la Mesa ${numeroMesa} 🎉`;
     mesaSeleccionadaNumero = numeroMesa;
 
+    inputsPersonas.style.display = 'block';
     botonMenu.style.display = 'inline-block';
 }
 
 function irAlMenu() {
-    if (mesaSeleccionadaNumero) {
-        // Aquí puedes redirigir a la página del menú
-        // Por ahora, solo mostraremos una alerta
-        alert(`Yendo al menú para la Mesa ${mesaSeleccionadaNumero}. ¡A disfrutar del sushi! 🍣`);
-        // En un caso real, usarías algo como:
-        // window.location.href = `menu.html?mesa=${mesaSeleccionadaNumero}`;
+    const nPersonas = parseInt(document.getElementById('numeroPersonas').value, 10);
+    
+    // Comprueba si mesaSeleccionadaNumero es válido y nPersonas es un número positivo
+    if (mesaSeleccionadaNumero && !isNaN(nPersonas) && nPersonas > 0) {
+        const url = `carta.html?mesa=${mesaSeleccionadaNumero}&personas=${nPersonas}`;
+        console.log(`Redirigiendo a: ${url}`);
+        window.location.href = url;
+    } else {
+        alert('Tienes que indicar el número de personas de manera válida');
     }
 }
 
-// Menú burger
-function irAlMenu() {
-    if (mesaSeleccionadaNumero) {
-        alert(`Yendo al menú para la Mesa ${mesaSeleccionadaNumero}. ¡A disfrutar del sushi! 🍣`);
-        // En un caso real, usarías:
-        // window.location.href = `menu.html?mesa=${mesaSeleccionadaNumero}`;
-    }
-}
 
 function toggleMenu() {
     document.querySelector('.sidebar').classList.toggle('active');

@@ -55,4 +55,27 @@ class Pedido{
 
         return $this->db->query("SELECT ROW_COUNT() as affected")->fetch_assoc()['affected'];
     }
+
+    // public function createPedido($mesaId, $personas, $fecha, $detalles){
+    //     // Insertar el pedido
+    //     $data = ['mesa_id' => $mesaId, 'n_personas' => $personas, 'fecha' => $fecha];
+    //     $dataSaneado = Validator::sanear($data);
+    //     $mesaIdSaneado = $dataSaneado['mesa_id'];
+    //     $personaSaneada = $dataSaneado['n_personas'];
+    //     $fechaSaneada = $dataSaneado['fecha'];
+        
+    //     $this->db->query("INSERT INTO pedidos (mesa_id, n_personas, fecha) VALUES (?, ?, ?)", [$mesaIdSaneado, $personaSaneada, $fechaSaneada]);
+        
+    //     // Obtener el último ID insertado
+    //     $pedidoId = $this->db->query("SELECT LAST_INSERT_ID() as id")->fetch_assoc()['id'];
+    
+    //     // Insertar los detalles del pedido
+    //     $detallePedido = new DetallePedido();
+    //     foreach ($detalles as $detalle) {
+    //         $detallePedido->createDetallePedido($pedidoId, $detalle['producto_id'], $detalle['cantidad']);
+    //     }
+    
+    //     return $pedidoId;
+    // }
+    
 }

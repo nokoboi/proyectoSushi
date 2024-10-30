@@ -68,7 +68,7 @@ function setPedido($pedido){
 
 function updatePedido($pedido, $id)
 {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $_POST;
 
     if(isset($data['mesa_id']) && isset($data['n_personas']) && isset($data['fecha'])){
         $affected = $pedido->updatePedido($id, $data['mesa_id'],$data['n_personas'],$data['fecha']);
