@@ -24,35 +24,33 @@ class DetallePedido
         return $result->fetch_assoc();
     }
 
-    public function createDetallePedido($pedidoID, $productoID, $cantidad)
+    public function createDetallePedido($pedidoId, $productoId, $cantidad)
     {
-        // Obtener la cantidad de personas del pedido
-        $pedidoResult = $this->db->query("SELECT n_personas FROM pedidos WHERE id = ?", [$pedidoID]);
-        $pedido = $pedidoResult->fetch_assoc();
-        $numPersonas = $pedido['n_personas'];
+        // Validar si el pedido existe
+        $pedido = $this->db->query("SELECT n_personas FROM pedidos WHERE id = ?", [$pedidoId])->fetch_assoc();
 
-        // Obtener el precio del buffet por persona desde la tabla miscelaneo
-        $buffetResult = $this->db->query("SELECT precio FROM miscelaneo WHERE concepto = 'buffet'");
-        $buffet = $buffetResult->fetch_assoc();
-        $precioBuffet = $buffet['precio'];
+        if (!$pedido) {
+            return ['Error' => 'Pedido no encontrado'];
+        }
 
-        // Obtener el precio del producto que se añade al detalle del pedido
-        $productoResult = $this->db->query("SELECT precio FROM productos WHERE tipo='bebida' and id = ?", [$productoID]);
-        $producto = $productoResult->fetch_assoc();
-        $precioProducto = $producto['precio'] * $cantidad;
+        // Obtener el precio del producto
+        $producto = $this->db->query("SELECT precio FROM productos WHERE id = ?", [$productoId])->fetch_assoc();
 
-        // Calcular el total incluyendo el precio del buffet
-        $total = $precioProducto + ($precioBuffet * $numPersonas);
+        if (!$producto) {
+            return ['Error' => 'Producto no encontrado'];
+        }
 
-        // Insertar el detalle del pedido en la base de datos
-        $this->db->query(
-            "INSERT INTO detalle_pedidos (pedido_id, producto_id, cantidad, total) VALUES (?, ?, ?, ?)",
-            [$pedidoID, $productoID, $cantidad, $total]
+        // Insertar el nuevo detalle de pedido
+        $insert = $this->db->query(
+            "INSERT INTO detalle_pedidos (pedido_id, producto_id, cantidad) VALUES (?, ?, ?)",
+            [$pedidoId, $productoId, $cantidad]
         );
 
-        return ['status' => 'success', 'message' => 'Detalle del pedido creado correctamente', 'total' => $total];
+        if ($insert) {
+            return ['Éxito' => 'Detalle de pedido creado correctamente'];
+        } else {
+            return ['Error' => 'Error al crear el detalle de pedido'];
+        }
     }
-
-
 
 }

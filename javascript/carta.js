@@ -1,4 +1,5 @@
 const api_product = 'http://localhost/ProyectoSushi/controllers/Productos.php';
+const api_pedido = 'http://localhost/ProyectoSushi/controllers/Pedidos.php';
 
 // Obtener el parámetro 'mesa' de la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -37,7 +38,7 @@ async function fetchProducts() {
                 <img src="${imagenUrl}" alt="${producto.nombre}">
                 <h2>${producto.nombre}</h2>
                 <p>${producto.descripcion}</p>
-                ${producto.precio && producto.precio !== '0.00' ? `<p>Precio: ${producto.precio} €</p>` : ''}
+                ${producto.precio && producto.precio !== '0.0' ? `<p>Precio: ${producto.precio} €</p>` : ''}
             `;
 
             // Agregar el evento de clic para añadir al carrito al hacer clic en el producto
@@ -79,7 +80,6 @@ function agregarAlCarrito(id, nombre, precio) {
 }
 
 // Función para mostrar el carrito
-// Función para mostrar el carrito
 function mostrarCarrito() {
     const cartItemsContainer = document.querySelector('.cart-items');
     cartItemsContainer.innerHTML = ''; // Limpiar contenido anterior
@@ -91,7 +91,7 @@ function mostrarCarrito() {
         if (item.precio === '0.0') {
             itemDiv.innerHTML = `${item.nombre} - Cantidad: ${item.cantidad}`;
         } else {
-            itemDiv.innerHTML = `${item.nombre} - Cantidad: ${item.cantidad} - Precio: $${(item.precio * item.cantidad).toFixed(2)}`;
+            itemDiv.innerHTML = `${item.nombre} - Cantidad: ${item.cantidad} - Precio: ${(item.precio * item.cantidad).toFixed(2)}`;
         }
 
         cartItemsContainer.appendChild(itemDiv);
@@ -100,9 +100,41 @@ function mostrarCarrito() {
 
 
 // Evento para confirmar el pedido
-document.getElementById('confirmarPedido').addEventListener('click', () => {
-    // Aquí puedes agregar la lógica para confirmar el pedido
-    console.log('Pedido confirmado:', carrito);
+document.getElementById('confirmarPedido').addEventListener('click', async () => {
+    try {
+        const pedidoData = {
+            mesa_id: numeroMesa,
+            n_personas: numPersonas,
+            fecha: new Date().toISOString().slice(0, 10), // Formato de fecha YYYY-MM-DD
+            detalles: carrito.map(item => ({
+                producto_id: item.id,
+                cantidad: item.cantidad
+            }))
+        };
+
+        const response = await fetch(`${api_pedido}?metodo=nuevo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pedidoData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al confirmar el pedido.');
+        }
+
+        const resultado = await response.json();
+        console.log('Pedido confirmado:', resultado.id.total);
+
+        if (resultado.id.total) {
+            alert(`Pedido confirmado con éxito. Total: ${resultado.id.total} €`);
+        } else {
+            alert('Pedido confirmado, pero no se pudo calcular el total.');
+        }
+    } catch (error) {
+        console.error('Error en la solicitud de confirmación del pedido:', error);
+    }
 });
 
 // Llamar a la función para cargar los productos al cargar la página

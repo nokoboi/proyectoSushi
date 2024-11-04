@@ -58,13 +58,15 @@ function getPedidoById($pedido, $id)
 function setPedido($pedido){
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if(isset($data['mesa_id']) && isset($data['n_personas']) && isset($data['fecha'])){
-        $id = $pedido->createPedido($data['mesa_id'],$data['n_personas'],$data['fecha']);
-        echo json_encode(['id' => $id]);
-    }else{
+    if (isset($data['mesa_id']) && isset($data['n_personas']) && isset($data['fecha']) && isset($data['detalles'])) {
+        $pedidoId = $pedido->createPedido($data['mesa_id'], $data['n_personas'], $data['fecha'], $data['detalles']);
+        echo json_encode(['id' => $pedidoId]);
+    } else {
+        http_response_code(400);
         echo json_encode(['Error' => 'Datos insuficientes']);
     }
 }
+
 
 function updatePedido($pedido, $id)
 {
