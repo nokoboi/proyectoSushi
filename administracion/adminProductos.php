@@ -1,3 +1,13 @@
+<?php
+    require_once 'checkSession.php';
+    // si previamente está logeado entonces esto no se carga
+    if(is_logged_in()){
+        header('Location: loginAdmin.php');
+        exit();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,6 +23,7 @@
         <a href="">Productos</a>
         <a href="">Mesas</a>
         <a href="">Pedidos</a>
+        <a href="logout.php">Cerrar Sesión</a>
     </nav>
     <h2>Productos</h2>
     <div>

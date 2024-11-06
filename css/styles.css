@@ -465,6 +465,57 @@ textarea{
     text-align: right; /* Alinear a la derecha */
 }
 
+/* Login */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #FF6B8B;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 2px solid #FFD3E0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #FF6B8B;
+    box-shadow: 0 0 5px rgba(255, 107, 139, 0.3);
+}
+
+.btn-login {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #FF6B8B;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #FF97B5;
+    transform: scale(1.05);
+}
+
 
 @media (max-width: 600px) {
     .logo img{

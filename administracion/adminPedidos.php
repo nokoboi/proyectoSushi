@@ -1,3 +1,13 @@
+<?php
+    require_once 'checkSession.php';
+    // si previamente está logeado entonces esto no se carga
+    if(is_logged_in()){
+        header('Location: loginAdmin.php');
+        exit();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
