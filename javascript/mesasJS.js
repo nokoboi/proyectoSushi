@@ -17,27 +17,37 @@ async function cargarMesas() {
         mesas.forEach(mesa => {
             const divMesa = document.createElement('div');
             divMesa.className = 'mesa';
+            divMesa.setAttribute('data-id', mesa.id); // Añade el data-id
             divMesa.innerHTML = `Mesa ${mesa.numero_mesa}`;
-            divMesa.addEventListener('click', () => seleccionarMesa(mesa.numero_mesa));
+            divMesa.addEventListener('click', () => seleccionarMesa(mesa.id));
             gridMesas.appendChild(divMesa);
-        })
-    }catch(error){
-        console.error('Error al cargar las mesas',error)
+        });
+    } catch (error) {
+        console.error('Error al cargar las mesas', error);
     }
 }
 
-function seleccionarMesa(numeroMesa) {
+function seleccionarMesa(idMesa) {
     const mesas = document.querySelectorAll('.mesa');
     mesas.forEach(mesa => mesa.classList.remove('seleccionada'));
 
-    const mesaSeleccionada = document.querySelector(`.mesa:nth-child(${numeroMesa})`);
-    mesaSeleccionada.classList.add('seleccionada');
+    // Seleccionar el elemento por su data-id
+    const mesaSeleccionada = document.querySelector(`.mesa[data-id='${idMesa}']`);
+    if (mesaSeleccionada) {
+        mesaSeleccionada.classList.add('seleccionada');
+        console.log(mesaSeleccionada);
 
-    mesaSeleccionadaDiv.innerHTML = `¡Ñam! Has elegido la Mesa ${numeroMesa} 🎉`;
-    mesaSeleccionadaNumero = numeroMesa;
+        // Obtener el número de la mesa desde el texto del elemento
+        const numeroMesa = mesaSeleccionada.textContent.trim().split(' ')[1]; // Asume que el formato es "Mesa X"
+        
+        mesaSeleccionadaDiv.innerHTML = `¡Ñam! Has elegido la Mesa ${numeroMesa} 🎉`;
+        mesaSeleccionadaNumero = idMesa; 
 
-    inputsPersonas.style.display = 'block';
-    botonMenu.style.display = 'inline-block';
+        inputsPersonas.style.display = 'block';
+        botonMenu.style.display = 'inline-block';
+    } else {
+        console.error('No se encontró la mesa seleccionada');
+    }
 }
 
 function irAlMenu() {

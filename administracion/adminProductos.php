@@ -1,10 +1,7 @@
 <?php
     require_once 'checkSession.php';
     // si previamente está logeado entonces esto no se carga
-    if(is_logged_in()){
-        header('Location: loginAdmin.php');
-        exit();
-    }
+    require_login();
 
 ?>
 
@@ -20,9 +17,9 @@
 
 <body>
     <nav>
-        <a href="">Productos</a>
-        <a href="">Mesas</a>
-        <a href="">Pedidos</a>
+        <a href="adminProductos.php">Productos</a>
+        <a href="adminMesas.php">Mesas</a>
+        <a href="adminPedidos.php">Pedidos</a>
         <a href="logout.php">Cerrar Sesión</a>
     </nav>
     <h2>Productos</h2>

@@ -41,6 +41,7 @@ h1 {
     background-color: #FFD3E0;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     cursor: pointer;
     font-size: 16px;
@@ -50,6 +51,10 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
+}
+
+.mesa.admin::before {
+    display: none; /* Oculta el emoji de sushi */
 }
 .mesa::before {
     content: '🍣';
@@ -94,6 +99,35 @@ h1 {
 
 #personas{
     display: none;
+}
+
+.añadirMesa{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.añadirMesa input{
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #FFD3E0;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boton-emoji {
+    font-size: 24px; /* Tamaño del emoji */
+    color: #FF69B4; /* Color rosa */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 3.5rem;
+}
+
+.boton-emoji:hover {
+    color: #FF1493; /* Un rosa más oscuro para el hover */
 }
 
 /* Toggle hamburguesa */
@@ -516,6 +550,128 @@ textarea{
     transform: scale(1.05);
 }
 
+/* Estilos para el nav */
+
+nav {
+    background-color: #FF6B8B;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    margin: 0 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #FF97B5;
+    transform: scale(1.05);
+}
+
+nav a.active {
+    background-color: #FFD3E0;
+    color: #FF6B8B;
+}
+
+.edicionMesa{
+    font-weight: bold;
+    font-size: 2rem
+}
+
+/* Modales */
+
+.modal{
+    display: none;
+}
+
+.modal-contenido {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.abrir-modal-recuperar{
+    cursor: pointer;
+    color:#FF1493
+}
+
+.modal-contenido input[type="email"],
+.modal-contenido input[type="password"] {
+    width: calc(100% - 30px); /* Aplicando el mismo ajuste de ancho */
+    padding: 12px;
+    margin: 10px auto; /* Centrado automático */
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    font-size: 1em;
+    display: block;
+}
+
+.modal-contenido input[type="submit"] {
+    background-color: #FF6B8B;
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.modal-contenido input[type="submit"]:hover {
+    background-color: #FF97B5;
+}
+
+.cerrarRecuperar,
+.cerrarRegistro {
+    color: #ffdd57;
+    font-size: 2em;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.cerrarRecuperar:hover,
+.cerrarRegistro:hover {
+    color: white;
+}
+
+.mensaje{
+    padding: 10px;
+    margin-bottom:15px;
+    border-radius: 5px;
+    display: inline;
+}
+
+.info{
+    background-color: #e7f3fe;
+    border: 1px solid #4f59b6
+}
+
+.error{
+    background-color: #ff3737;
+    border: 1px solid #9e3200
+}
+
+.success{
+    background-color: #6bdd1f;
+    border: 1px solid #638600
+}
+
 
 @media (max-width: 600px) {
     .logo img{
@@ -548,6 +704,17 @@ textarea{
         font-size: 16px;
         padding: 8px 16px;
     }
+
+    nav {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+    }
 }
 
 @media (max-width: 400px) {
@@ -565,5 +732,11 @@ textarea{
     }
     .mesa::before {
         font-size: 20px;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 0.5rem;
+        margin: 0.5rem;
     }
 }

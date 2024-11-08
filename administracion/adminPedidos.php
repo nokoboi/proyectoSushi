@@ -1,10 +1,7 @@
 <?php
-    require_once 'checkSession.php';
-    // si previamente está logeado entonces esto no se carga
-    if(is_logged_in()){
-        header('Location: loginAdmin.php');
-        exit();
-    }
+require_once 'checkSession.php';
+// si previamente está logeado entonces esto no se carga
+require_login();
 
 ?>
 
@@ -19,13 +16,20 @@
 </head>
 
 <body>
+    <nav>
+        <a href="adminProductos.php">Productos</a>
+        <a href="adminMesas.php">Mesas</a>
+        <a href="adminPedidos.php">Pedidos</a>
+        <a href="logout.php">Cerrar Sesión</a>
+    </nav>
     <h2>Productos</h2>
 
     <!-- Barra de búsqueda -->
     <div class="filtrarFecha">
         <div>
             <label for="startDate">Desde:</label>
-            <input type="date" id="startDate"></div>
+            <input type="date" id="startDate">
+        </div>
         <div>
             <label for="endDate">Hasta:</label>
             <input type="date" id="endDate">
