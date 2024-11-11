@@ -6,5 +6,5 @@ define('DB_NAME','sushi');
 
 // Credenciales para el envío de correos
 define('MAIL_HOST', 'smtp.servidor-correo.net');
-define('MAIL_USER','info@kvnsc.es');
-define('MAIL_PASS', 'Ladooscuro1994!');
+define('MAIL_USER','');
+define('MAIL_PASS', '');
